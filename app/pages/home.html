@@ -1,0 +1,13 @@
+<h1>Welcome to HyperServe</h1>
+<p>This is a real HTML page, served by a hand-built multithreaded HTTP server — no Flask, no Django. Every route below is a normal Python function in <code>app/routes.py</code> that returns HTML instead of JSON.</p>
+
+<h2>Pages on this site</h2>
+<table>
+  <tr><th>Page</th><th>What it shows</th></tr>
+  <tr><td><a href="/">/</a></td><td>This home page</td></tr>
+  <tr><td><a href="/about">/about</a></td><td>A static about page</td></tr>
+  <tr><td><a href="/items">/items</a></td><td>A dynamic page listing items from an in-memory store</td></tr>
+</table>
+
+<h2>Still available as JSON</h2>
+<p class="muted">The original JSON API endpoints (<code>/api/health</code>, <code>/api/items</code>, <code>/metrics</code>) are untouched — HTML pages and the JSON API run side by side.</p>

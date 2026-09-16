@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title}} · HyperServe</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="/">HyperServe</a>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/items">Items</a>
+  </nav>
+  <div class="container">
+    {{content}}
+    <footer>Served by HyperServe's own socket server &middot; page rendered {{render_time}}</footer>
+  </div>
+</body>
+</html>

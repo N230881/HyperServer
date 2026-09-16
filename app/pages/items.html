@@ -1,0 +1,9 @@
+<h1>Items</h1>
+<p class="muted">This table is generated dynamically from the in-memory items store — the same data the JSON API at <code>/api/items</code> serves.</p>
+
+<form class="inline" method="POST" action="/items">
+  <input type="text" name="name" placeholder="New item name" required />
+  <button class="btn" type="submit">Add item</button>
+</form>
+
+{{items_table}}

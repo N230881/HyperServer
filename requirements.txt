@@ -1,0 +1,7 @@
+# The core HyperServe server (server/, app/, main.py, benchmark.py) uses
+# ONLY the Python standard library - no dependencies, no paid APIs.
+#
+# These are needed only to run the Streamlit dashboard:
+streamlit>=1.35.0
+pandas>=2.0.0
+plotly>=5.20.0
