@@ -45,24 +45,7 @@ hyperserve/
 
 ---
 
-## 2. How it maps to the handbook
 
-| Handbook feature        | Where it lives |
-|---|---|
-| Thread Pool              | `server/thread_pool.py` |
-| HTTP request parsing     | `server/http_parser.py` |
-| Routing + Middleware      | `server/router.py`, `server/middleware.py` |
-| LRU Cache                 | `server/lru_cache.py`, used in `app/routes.py` for static files |
-| Structured Logging        | `server/logger.py` (JSON Lines format) |
-| Metrics Dashboard          | `dashboard/streamlit_app.py` + `GET /metrics` |
-| Queues (request scheduling) | `queue.Queue` inside `ThreadPool` |
-| HashMap (routing)          | `Router.static_routes` dict |
-| Concurrency & Synchronization | `threading.Lock` in `ThreadPool`, `LRUCache`, `RateLimiter` |
-| Security headers            | `response.py` (`DEFAULT_SECURITY_HEADERS`), `middleware.py` |
-| Unit tests                  | `tests/test_server.py` |
-| Benchmarking                 | `benchmark.py` |
-
----
 
 ## 3. Step-by-Step Setup (on your laptop)
 
