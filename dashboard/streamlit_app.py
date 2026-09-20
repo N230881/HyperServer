@@ -12,10 +12,11 @@ TWO MODES:
      case when this dashboard is deployed on Streamlit Community Cloud
      and HyperServe is only running on your own laptop - 127.0.0.1
      means "this machine", and Streamlit's cloud machine is not your
-     laptop), it automatically falls back to a bundled sample dataset
-     (dashboard/demo_access_log.jsonl) captured from a real local run,
-     so the deployed link still shows a working, populated dashboard
-     instead of a dead connection-error page.
+     laptop), it automatically falls back to sample data captured from
+     a real local benchmark run. That sample data is embedded directly
+     in dashboard/_demo_data.py (not a separate .jsonl file), so there
+     is no risk of it going missing or being at the wrong path after
+     uploading to GitHub / deploying on Streamlit Cloud.
 
 Run locally with (from the project root, server running separately):
     streamlit run dashboard/streamlit_app.py
@@ -35,10 +36,9 @@ import pandas as pd
 import plotly.express as px
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from server.logger import read_recent_logs, clear_logs, ACCESS_LOG_PATH
-
-DASHBOARD_DIR = os.path.dirname(os.path.abspath(__file__))
-DEMO_LOG_PATH = os.path.join(DASHBOARD_DIR, "demo_access_log.jsonl")
+from _demo_data import get_demo_logs
 
 st.set_page_config(page_title="HyperServe Dashboard", page_icon="⚡", layout="wide")
 
@@ -63,19 +63,8 @@ def fetch_metrics(base_url):
 
 
 def load_demo_logs(limit):
-    if not os.path.exists(DEMO_LOG_PATH):
-        return []
-    with open(DEMO_LOG_PATH, "r") as f:
-        lines = f.readlines()[-limit:]
-    out = []
-    for line in lines:
-        line = line.strip()
-        if line:
-            try:
-                out.append(json.loads(line))
-            except json.JSONDecodeError:
-                pass
-    return out
+    logs = get_demo_logs()
+    return logs[-limit:]
 
 
 def demo_metrics_from_logs(logs):
@@ -248,7 +237,7 @@ else:
             height=500,
         )
         st.caption(
-            f"Log source: `{'demo_access_log.jsonl (bundled sample)' if demo_mode else ACCESS_LOG_PATH}`"
+            f"Log source: {'embedded demo data (sample run)' if demo_mode else ACCESS_LOG_PATH}"
         )
 
 if auto_refresh and not demo_mode:
